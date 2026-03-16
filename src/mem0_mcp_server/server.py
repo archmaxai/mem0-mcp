@@ -132,7 +132,7 @@ def _resolve_settings(ctx: Context | None) -> tuple[str, str, bool]:
 def _mem0_client(api_key: str) -> MemoryClient:
     client = _CLIENT_CACHE.get(api_key)
     if client is None:
-        client = MemoryClient(api_key=api_key, base_url=ENV_MEM0_API_BASE_URL)
+        client = MemoryClient(api_key=api_key, host=ENV_MEM0_API_BASE_URL)
         _CLIENT_CACHE[api_key] = client
     return client
 
