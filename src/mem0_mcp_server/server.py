@@ -41,8 +41,6 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s | %(messa
 logger = logging.getLogger("mem0_mcp_server")
 
 
-
-
 T = TypeVar("T")
 
 try:
@@ -68,7 +66,7 @@ ENV_ENABLE_GRAPH_DEFAULT = os.getenv("MEM0_ENABLE_GRAPH_DEFAULT", "false").lower
     "true",
     "yes",
 }
-
+ENV_MEM0_API_BASE_URL = os.getenv("MEM0_API_BASE_URL", "https://api.mem0.ai")
 _CLIENT_CACHE: Dict[str, MemoryClient] = {}
 
 
@@ -134,7 +132,7 @@ def _resolve_settings(ctx: Context | None) -> tuple[str, str, bool]:
 def _mem0_client(api_key: str) -> MemoryClient:
     client = _CLIENT_CACHE.get(api_key)
     if client is None:
-        client = MemoryClient(api_key=api_key)
+        client = MemoryClient(api_key=api_key, base_url=ENV_MEM0_API_BASE_URL)
         _CLIENT_CACHE[api_key] = client
     return client
 
